@@ -46,7 +46,7 @@ export default function MortgageChart({ data, housePrice }: MortgageChartProps) 
               Principal Paid: {formatCurrency(payload[0].value)}
             </p>
             <p className="text-sm text-purple-400 font-medium">
-              Return Paid: {formatCurrency(payload[1].value - payload[0].value)}
+              Financing Cost: {formatCurrency(payload[1].value - payload[0].value)}
             </p>
           </div>
         </div>
@@ -120,9 +120,9 @@ export default function MortgageChart({ data, housePrice }: MortgageChartProps) 
             <div>
               <p className="text-sm font-semibold text-gray-100">Understanding Your Mortgage</p>
               <p className="text-xs text-gray-400 mt-1">
-                The <span className="font-semibold text-cyan-400">cyan area</span> shows your total payments including return. 
+                The <span className="font-semibold text-cyan-400">cyan area</span> shows your total payments including financing costs. 
                 The <span className="font-semibold text-emerald-400">green area</span> shows the principal amount you've paid down. 
-                The gap between them represents the <span className="font-semibold text-purple-400">return portion</span> of your payments.
+                The gap between them represents the <span className="font-semibold text-purple-400">financing cost</span> of your loan.
               </p>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Calculator, Home, TrendingUp, Menu, X } from "lucide-react";
+import { Calculator, Home, TrendingUp, Menu, X, DollarSign } from "lucide-react";
 import { Button } from "./ui/button";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -11,6 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { name: "Home", href: "/", icon: Home },
     { name: "Compound Calculator", href: "/compound", icon: TrendingUp },
     { name: "Mortgage Calculator", href: "/mortgage", icon: Calculator },
+    { name: "Inflation Adjuster", href: "/inflation", icon: DollarSign },
   ];
 
   return (

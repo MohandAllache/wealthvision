@@ -14,7 +14,7 @@ interface MortgageResult {
   regularPayment: number;
   monthlyPayment: number;
   totalPaid: number;
-  totalReturn: number;
+  totalFinancingCost: number;
   downPayment: number;
   yearsToPayoff: number;
   monthsSaved: number;
@@ -163,7 +163,7 @@ export default function MortgageCalculator() {
       });
     }
 
-    const totalReturn = totalPaidAmount - downPmt - principal;
+    const totalFinancingCost = totalPaidAmount - downPmt - principal;
     const originalMonths = n * 12;
     const actualMonths = actualYears * 12;
     const monthsSaved = originalMonths - actualMonths;
@@ -173,7 +173,7 @@ export default function MortgageCalculator() {
       regularPayment: Math.round(payment * 100) / 100,
       monthlyPayment: Math.round(monthlyPayment * 100) / 100,
       totalPaid: Math.round(totalPaidAmount * 100) / 100,
-      totalReturn: Math.round(totalReturn * 100) / 100,
+      totalFinancingCost: Math.round(totalFinancingCost * 100) / 100,
       downPayment: Math.round(downPmt * 100) / 100,
       yearsToPayoff: actualYears,
       monthsSaved: monthsSaved,
@@ -404,11 +404,11 @@ export default function MortgageCalculator() {
                   <Card className="shadow-xl border-slate-700 bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
                     <CardHeader className="pb-3">
                       <CardTitle className="text-sm font-medium opacity-90">
-                        Total Return
+                        Financing Cost
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-3xl font-bold">{formatCurrency(result.totalReturn)}</div>
+                      <div className="text-3xl font-bold">{formatCurrency(result.totalFinancingCost)}</div>
                       <p className="text-xs mt-2 opacity-90">
                         Over {result.yearsToPayoff} years
                       </p>
