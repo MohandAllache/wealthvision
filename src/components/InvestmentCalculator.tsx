@@ -13,7 +13,7 @@ interface CalculationResult {
     totalValue: number;
   }>;
   totalContributions: number;
-  totalInterest: number;
+  totalReturn: number;
   finalValue: number;
 }
 
@@ -109,12 +109,12 @@ export default function InvestmentCalculator() {
     }
 
     const finalValue = yearlyData[yearlyData.length - 1].totalValue;
-    const totalInterest = finalValue - totalContributions;
+    const totalReturn = finalValue - totalContributions;
 
     setResult({
       yearlyData,
       totalContributions: Math.round(totalContributions * 100) / 100,
-      totalInterest: Math.round(totalInterest * 100) / 100,
+      totalReturn: Math.round(totalReturn * 100) / 100,
       finalValue: Math.round(finalValue * 100) / 100,
     });
   };
@@ -133,42 +133,42 @@ export default function InvestmentCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         <div className="text-center space-y-3 py-6">
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
-            WealthVision
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+            Compound Calculator
           </h1>
-          <p className="text-muted-foreground text-xl">
+          <p className="text-gray-400 text-xl">
             See your financial future, today
           </p>
         </div>
 
         {result && (
           <div className="text-center py-4">
-            <div className="inline-block bg-white/90 backdrop-blur rounded-2xl px-8 py-6 shadow-xl border border-purple-100">
-              <p className="text-lg text-gray-600 mb-2">
-                In <span className="font-bold text-purple-600">{years} years</span>, you will have
+            <div className="inline-block bg-slate-800/90 backdrop-blur rounded-2xl px-8 py-6 shadow-xl border border-slate-700">
+              <p className="text-lg text-gray-300 mb-2">
+                In <span className="font-bold text-cyan-400">{years} years</span>, you will have
               </p>
-              <p className="text-5xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
+              <p className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 {formatCurrency(result.finalValue)}
               </p>
-              <p className="text-sm text-gray-500 mt-3">
-                That's <span className="font-semibold text-emerald-600">{formatCurrency(result.totalInterest)}</span> in interest earnings! 🎉
+              <p className="text-sm text-gray-400 mt-3">
+                That's <span className="font-semibold text-emerald-400">{formatCurrency(result.totalReturn)}</span> in return earnings
               </p>
             </div>
           </div>
         )}
 
         <div className="grid lg:grid-cols-3 gap-6">
-          <Card className="lg:col-span-1 shadow-xl border-0 bg-white/90 backdrop-blur">
+          <Card className="lg:col-span-1 shadow-xl border-slate-700 bg-slate-800/90 backdrop-blur">
             <CardHeader>
-              <CardTitle className="text-2xl">Your Investment Plan</CardTitle>
-              <CardDescription>Tell us about your financial goals</CardDescription>
+              <CardTitle className="text-2xl text-gray-100">Your Investment Plan</CardTitle>
+              <CardDescription className="text-gray-400">Tell us about your financial goals</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="initial" className="text-sm font-medium">
+                <Label htmlFor="initial" className="text-sm font-medium text-gray-200">
                   Starting Amount ($)
                 </Label>
                 <Input
@@ -176,16 +176,16 @@ export default function InvestmentCalculator() {
                   type="number"
                   value={initialInvestment}
                   onChange={(e) => setInitialInvestment(e.target.value)}
-                  className={`text-lg ${errors.initialInvestment ? "border-red-500" : ""}`}
+                  className={`text-lg bg-slate-900 border-slate-600 text-gray-100 ${errors.initialInvestment ? "border-red-500" : ""}`}
                   placeholder="10000"
                 />
                 {errors.initialInvestment && (
-                  <p className="text-sm text-red-500">{errors.initialInvestment}</p>
+                  <p className="text-sm text-red-400">{errors.initialInvestment}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="rate" className="text-sm font-medium">
+                <Label htmlFor="rate" className="text-sm font-medium text-gray-200">
                   Expected Annual Return (%)
                 </Label>
                 <Input
@@ -194,19 +194,19 @@ export default function InvestmentCalculator() {
                   step="0.1"
                   value={annualRate}
                   onChange={(e) => setAnnualRate(e.target.value)}
-                  className={`text-lg ${errors.annualRate ? "border-red-500" : ""}`}
+                  className={`text-lg bg-slate-900 border-slate-600 text-gray-100 ${errors.annualRate ? "border-red-500" : ""}`}
                   placeholder="7"
                 />
                 {errors.annualRate && (
-                  <p className="text-sm text-red-500">{errors.annualRate}</p>
+                  <p className="text-sm text-red-400">{errors.annualRate}</p>
                 )}
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-gray-500">
                   Historical stock market average: ~10%
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="years" className="text-sm font-medium">
+                <Label htmlFor="years" className="text-sm font-medium text-gray-200">
                   Time Horizon (Years)
                 </Label>
                 <Input
@@ -214,23 +214,23 @@ export default function InvestmentCalculator() {
                   type="number"
                   value={years}
                   onChange={(e) => setYears(e.target.value)}
-                  className={`text-lg ${errors.years ? "border-red-500" : ""}`}
+                  className={`text-lg bg-slate-900 border-slate-600 text-gray-100 ${errors.years ? "border-red-500" : ""}`}
                   placeholder="10"
                 />
                 {errors.years && (
-                  <p className="text-sm text-red-500">{errors.years}</p>
+                  <p className="text-sm text-red-400">{errors.years}</p>
                 )}
               </div>
 
-              <div className="space-y-3 pt-2 border-t">
-                <Label className="text-sm font-medium">
+              <div className="space-y-3 pt-2 border-t border-slate-700">
+                <Label className="text-sm font-medium text-gray-200">
                   Regular Contributions
-                  <span className="text-muted-foreground ml-1">(Optional)</span>
+                  <span className="text-gray-500 ml-1">(Optional)</span>
                 </Label>
                 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <Label htmlFor="contribution" className="text-xs text-muted-foreground">
+                    <Label htmlFor="contribution" className="text-xs text-gray-400">
                       Amount ($)
                     </Label>
                     <Input
@@ -238,20 +238,20 @@ export default function InvestmentCalculator() {
                       type="number"
                       value={contributionAmount}
                       onChange={(e) => setContributionAmount(e.target.value)}
-                      className={`text-lg ${errors.contributionAmount ? "border-red-500" : ""}`}
+                      className={`text-lg bg-slate-900 border-slate-600 text-gray-100 ${errors.contributionAmount ? "border-red-500" : ""}`}
                       placeholder="500"
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="frequency" className="text-xs text-muted-foreground">
+                    <Label htmlFor="frequency" className="text-xs text-gray-400">
                       Frequency
                     </Label>
                     <Select value={contributionFrequency} onValueChange={(value: ContributionFrequency) => setContributionFrequency(value)}>
-                      <SelectTrigger className="text-base">
+                      <SelectTrigger className="text-base bg-slate-900 border-slate-600 text-gray-100">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-slate-800 border-slate-700">
                         <SelectItem value="weekly">Weekly</SelectItem>
                         <SelectItem value="biweekly">Bi-weekly</SelectItem>
                         <SelectItem value="monthly">Monthly</SelectItem>
@@ -263,7 +263,7 @@ export default function InvestmentCalculator() {
                 </div>
                 
                 {errors.contributionAmount && (
-                  <p className="text-sm text-red-500">{errors.contributionAmount}</p>
+                  <p className="text-sm text-red-400">{errors.contributionAmount}</p>
                 )}
               </div>
             </CardContent>
@@ -275,7 +275,7 @@ export default function InvestmentCalculator() {
                 <ResultsSummary
                   finalValue={result.finalValue}
                   totalContributions={result.totalContributions}
-                  totalInterest={result.totalInterest}
+                  totalReturn={result.totalReturn}
                   years={parseInt(years)}
                 />
                 <InvestmentChart data={result.yearlyData} />

@@ -4,14 +4,14 @@ import { TrendingUp, DollarSign, PiggyBank, Sparkles } from "lucide-react";
 interface ResultsSummaryProps {
   finalValue: number;
   totalContributions: number;
-  totalInterest: number;
+  totalReturn: number;
   years: number;
 }
 
 export default function ResultsSummary({
   finalValue,
   totalContributions,
-  totalInterest,
+  totalReturn,
   years,
 }: ResultsSummaryProps) {
   const formatCurrency = (value: number) => {
@@ -23,11 +23,11 @@ export default function ResultsSummary({
     }).format(value);
   };
 
-  const returnPercentage = ((totalInterest / totalContributions) * 100).toFixed(1);
+  const returnPercentage = ((totalReturn / totalContributions) * 100).toFixed(1);
 
   return (
     <div className="grid md:grid-cols-3 gap-4">
-      <Card className="shadow-xl border-0 bg-gradient-to-br from-violet-500 to-purple-600 text-white overflow-hidden relative">
+      <Card className="shadow-xl border-slate-700 bg-gradient-to-br from-blue-600 to-cyan-600 text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
         <CardHeader className="pb-3 relative z-10">
           <div className="flex items-center justify-between">
@@ -45,7 +45,7 @@ export default function ResultsSummary({
         </CardContent>
       </Card>
 
-      <Card className="shadow-xl border-0 bg-gradient-to-br from-emerald-500 to-teal-600 text-white overflow-hidden relative">
+      <Card className="shadow-xl border-slate-700 bg-gradient-to-br from-emerald-600 to-teal-600 text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
         <CardHeader className="pb-3 relative z-10">
           <div className="flex items-center justify-between">
@@ -63,7 +63,7 @@ export default function ResultsSummary({
         </CardContent>
       </Card>
 
-      <Card className="shadow-xl border-0 bg-gradient-to-br from-fuchsia-500 to-pink-600 text-white overflow-hidden relative">
+      <Card className="shadow-xl border-slate-700 bg-gradient-to-br from-indigo-600 to-purple-600 text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
         <CardHeader className="pb-3 relative z-10">
           <div className="flex items-center justify-between">
@@ -74,9 +74,9 @@ export default function ResultsSummary({
           </div>
         </CardHeader>
         <CardContent className="relative z-10">
-          <div className="text-3xl font-bold">{formatCurrency(totalInterest)}</div>
+          <div className="text-3xl font-bold">{formatCurrency(totalReturn)}</div>
           <p className="text-xs mt-2 opacity-90">
-            {returnPercentage}% growth from compound interest
+            {returnPercentage}% growth from compound returns
           </p>
         </CardContent>
       </Card>

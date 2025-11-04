@@ -15,14 +15,15 @@ import {
 interface ChartData {
   year: number;
   principal: number;
-  totalValue: number;
+  totalPaid: number;
 }
 
-interface InvestmentChartProps {
+interface MortgageChartProps {
   data: ChartData[];
+  housePrice: number;
 }
 
-export default function InvestmentChart({ data }: InvestmentChartProps) {
+export default function MortgageChart({ data, housePrice }: MortgageChartProps) {
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -39,13 +40,13 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
           <p className="font-bold text-gray-100 mb-2">After {label} {label === 1 ? 'Year' : 'Years'}</p>
           <div className="space-y-1">
             <p className="text-sm text-cyan-400 font-semibold">
-              Total Value: {formatCurrency(payload[1].value)}
+              Total Paid: {formatCurrency(payload[1].value)}
             </p>
             <p className="text-sm text-emerald-400 font-medium">
-              Your Contributions: {formatCurrency(payload[0].value)}
+              Principal Paid: {formatCurrency(payload[0].value)}
             </p>
             <p className="text-sm text-purple-400 font-medium">
-              Return Earned: {formatCurrency(payload[1].value - payload[0].value)}
+              Return Paid: {formatCurrency(payload[1].value - payload[0].value)}
             </p>
           </div>
         </div>
@@ -57,9 +58,9 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
   return (
     <Card className="shadow-xl border-slate-700 bg-slate-800/90 backdrop-blur">
       <CardHeader>
-        <CardTitle className="text-2xl text-gray-100">Your Wealth Growth Journey</CardTitle>
+        <CardTitle className="text-2xl text-gray-100">Payment Breakdown Over Time</CardTitle>
         <p className="text-sm text-gray-400">
-          Watch your money grow year by year
+          See how your payments reduce the principal over the years
         </p>
       </CardHeader>
       <CardContent>
@@ -86,7 +87,7 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
             />
             <YAxis
               tickFormatter={formatCurrency}
-              label={{ value: "Value ($)", angle: -90, position: "insideLeft" }}
+              label={{ value: "Amount ($)", angle: -90, position: "insideLeft" }}
               stroke="#94a3b8"
             />
             <Tooltip content={<CustomTooltip />} />
@@ -100,15 +101,15 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
               stroke="#10b981"
               strokeWidth={2}
               fill="url(#colorPrincipal)"
-              name="Your Contributions"
+              name="Principal Paid"
             />
             <Area
               type="monotone"
-              dataKey="totalValue"
+              dataKey="totalPaid"
               stroke="#06b6d4"
               strokeWidth={3}
               fill="url(#colorTotal)"
-              name="Total Value"
+              name="Total Paid"
             />
           </AreaChart>
         </ResponsiveContainer>
@@ -117,11 +118,11 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
           <div className="flex items-start gap-3">
             <div className="flex-shrink-0 w-2 h-2 rounded-full bg-cyan-400 mt-2"></div>
             <div>
-              <p className="text-sm font-semibold text-gray-100">How It Works</p>
+              <p className="text-sm font-semibold text-gray-100">Understanding Your Mortgage</p>
               <p className="text-xs text-gray-400 mt-1">
-                The <span className="font-semibold text-cyan-400">cyan area</span> shows your total wealth including compound returns. 
-                The <span className="font-semibold text-emerald-400">green area</span> shows what you actually put in. 
-                The gap between them is the <span className="font-semibold text-purple-400">power of compound returns</span> working for you.
+                The <span className="font-semibold text-cyan-400">cyan area</span> shows your total payments including return. 
+                The <span className="font-semibold text-emerald-400">green area</span> shows the principal amount you've paid down. 
+                The gap between them represents the <span className="font-semibold text-purple-400">return portion</span> of your payments.
               </p>
             </div>
           </div>
